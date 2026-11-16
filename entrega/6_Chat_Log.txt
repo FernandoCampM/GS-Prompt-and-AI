@@ -1,0 +1,55 @@
+6_Chat_Log.txt — Registro do uso de IA como ferramenta
+GS2026.2 · Prompt and Artificial Intelligence · Frente C · Acessa Metrô
+Dupla: Fernando Campos Garnica Mota (RM 567451) · André da Silva Pinto (RM 559038)
+Ferramenta: Claude (Anthropic), via claude.ai
+Data da conversa: 16/11/2026
+
+Observação: abaixo estão as mensagens do Fernando, transcritas na íntegra, e um resumo das respostas da IA. Se a dupla exportar a conversa completa, ela pode ser colada no final deste arquivo. Outros chats que a dupla usar (ex.: para tirar dúvidas no Colab) também devem ser colados aqui.
+
+======================================================================
+1) FERNANDO
+[anexou o PDF "GS2026_2_Briefing_1CCPA_1CCPB_1CCPR_1CCPS3.pdf", sem texto]
+
+IA (resumo): leu o briefing e resumiu o que é pedido: o pipeline dados → validação → LLM → fallback → system prompt → harness. Destacou os pontos que mais pesam: dados valem 2,0; o system prompt precisa dos 7 elementos; notebook que não roda perde 1,5; chave exposta faz a entrega não ser corrigida. Perguntou a frente, a modalidade e o tipo de ajuda.
+
+======================================================================
+2) FERNANDO
+https://experience.fiap.com.br/global-solution-citizen-tech
+
+IA (resumo): leu a página geral da GS. Explicou que ela não muda os entregáveis da disciplina, mas acrescenta o alinhamento com os ODS da ONU e as 6 perguntas norteadoras, que podem guiar o README. Sugeriu ODS 11 e 10.
+
+======================================================================
+3) FERNANDO
+"frente C, em dupla. Minha ideia da frente C é que tenha alguma monitoria (como health checks) de formas de acessibilidade no metrô, como escadas rolantes ou esteiras rolantes, por meio de algum sistema como zabbix. atualmente, muitas dessas ferramentas de acessibilidade ficam horas, dias ou até semanas sem serem consertadas, e, quando são, quebram rapidamente. minha ideia é ter uma monitoria para manter o funcionamento no mais perto de 100% possível, e para que os técnicos saibam a prioridade de qual ferramenta devem fazer manutenção, pois saberiam qual está mais perto de quebrar"
+[enviou também o nome e o RM do parceiro: André da Silva Pinto, RM 559038]
+
+IA (resumo): disse que a ideia cabe na frente C e sugeriu 3 ajustes para bater com a rubrica:
+  a) o briefing avalia um assistente para o CIDADÃO; a monitoria entra como classificação de urgência e ranking para o TÉCNICO (dois públicos, mesma base);
+  b) o Zabbix real não roda no Colab sem API paga → telemetria simulada (disponibilidade, falhas, horas parado, última manutenção) declarada nas limitações; "mais perto de quebrar" vira uma fórmula de risco explicável;
+  c) definir "acessivel" como "atende cadeirante" (elevador = true, escada rolante = false).
+Depois gerou um rascunho dos 6 arquivos: notebook, JSON, prompts_kit, README, certificação e este log. Testou o código do notebook com um modelo simulado (sem chave e com respostas válidas e inválidas) para garantir que o Run all não quebra.
+
+======================================================================
+4) FERNANDO
+"1CCPS, faça um claude.md para realizar todas essas tarefas"
+
+IA (resumo): colocou a turma 1CCPS no notebook, no README e na certificação. Criou um CLAUDE.md (fora do zip) com o contexto do projeto, as regras invioláveis e as tarefas que faltam, para a dupla terminar com o Claude Code. Regras principais: a IA não dá as notas humanas, não escreve a tese nem o prompt final no lugar da dupla, e nunca expõe a chave. Acrescentou ao notebook a leitura da chave por variável de ambiente, para rodar fora do Colab.
+
+======================================================================
+O QUE FOI DECISÃO DA DUPLA × SUGESTÃO DA IA
+
+Decisão da dupla:
+- Frente C e o tema: monitorar a saúde de elevadores, escadas e esteiras do metrô, como health checks do Zabbix.
+- Objetivo: funcionamento perto de 100% e prioridade para o técnico pelo que está mais perto de quebrar.
+- Modalidade: dupla.
+- Notas da matriz de avaliação humana (Seção 5): atribuídas pela dupla, lendo as respostas.
+- [completar: o que vocês mudaram no prompt, nos dados ou nos pesos do risco depois de revisar]
+
+Sugestão da IA, revisada pela dupla:
+- Campos da telemetria simulada e a fórmula de risco (pesos 10 / 0,5 / +15).
+- Significado de "acessivel" como "atende cadeirante".
+- Estrutura em blocos do system prompt v2 e o few-shot de Jabaquara.
+- Regras de validação/fallback ("IA pode subir a urgência, não rebaixar"; o fallback nunca usa o relato).
+- Rascunho do código das Seções 1 a 7 e dos textos do README.
+
+Uso de IA dentro da solução: o modelo da Ollama Cloud classifica a urgência, reescreve o relato do cidadão e responde como assistente. Toda saída é validada pelo código.

@@ -1,0 +1,13 @@
+# Gerados pelos testes com mock (não vão no zip nem no repo)
+testes/saida/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Saídas locais
+trilha_auditoria.json
+GS2026_2_*.zip
+
+# Nunca versionar chaves
+.env
+*.key
