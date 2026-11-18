@@ -53,6 +53,8 @@ GSPROMPTANDAI/                     ← raiz do projeto (no PC do Fernando: Deskt
 │   ├── 4_README.md
 │   ├── 5_certificacao.txt
 │   └── 6_Chat_Log.txt
+├── estudo/
+│   └── Guia_do_codigo_AcessaMetro.md  ← explicação linha a linha para a defesa (NÃO vai no zip)
 ├── testes/
 │   ├── rodar_com_mock.py          ← roda todas as células com um LLM simulado
 │   ├── comparar_respostas.py      ← monta P1–P5 (v1 × v2) de um notebook executado, para as notas da dupla
@@ -241,6 +243,7 @@ else:
 - **18/11/2026, PC 2 (cont.):** pelo Claude in Chrome (Brave), abri o notebook no Colab (sessão de 03:47 ainda viva), troquei a célula 5.2 pelas notas da dupla, rodei a 5.2 e a certificação (Matriz SIM, média v1 4,2 / v2 3,0), salvei no Drive e baixei. As 13 saídas das outras células são idênticas às da execução de 03:47; o Colab tinha apagado os números de execução, e eu os restaurei a partir do arquivo daquela execução (1–12 e 14; a 5.2 é a 17 e a certificação, a 18). Colei a certificação real em `5_certificacao.txt`. Link do notebook no Drive: https://colab.research.google.com/drive/1JXF10iGDLSMppRmj7OzIPq-J0RHrySXv (compartilhado como "qualquer pessoa com o link: leitor" em 18/11; sem private_outputs). **Faltam:** compartilhar + links, prints, C, D (conclusão), item [completar] do chat log, H.
 - **18/11/2026, PC 2 (cont.):** notebook compartilhado (leitor por link). A dupla tirou os prints; eu os subi pelo Brave para a pasta do Drive `GS2026_2_1CCPS_AcessaMetro_prints` (https://drive.google.com/drive/folders/1r7OzViX_8-npzRbnWL6c8XIdIV7l0IDf, leitor por link) e coloquei no README (seção 5, miniaturas `drive.google.com/thumbnail`, que abrem sem login) e os dois links no `5_certificacao.txt`. Tarefas B, E e F concluídas. **Faltam:** C (tabela de iterações do kit), D (conclusão com a tese da dupla), item [completar] do chat log, H (checagem + zip) e commit/push.
 - **18/11/2026, PC 2 (cont.):** a dupla deu a tese; reescrevi a conclusão (7 linhas) a partir dela. O [completar] do chat log foi preenchido com o texto aprovado pela dupla (plano B + revisão das notas; dados e pesos sem mudança). Preenchi a tabela de iterações do kit com a saída real e as notas (v2 só melhorou na P5; leitura honesta do porquê) e corrigi a frase "v2 aprovada nos testes" no kit e na Seção 4. **Checagem final: tudo ✅; zip gerado.** Pendências opcionais: (1) tarefa D, parte do prompt: a dupla não reescreveu o PROMPT_V2 com as próprias palavras; ela precisa saber justificar cada bloco na defesa; (2) o Colab compartilhado ainda tem a conclusão antiga e a frase antiga da Seção 4 (só markdown). **Falta só a dupla subir o zip no Portal FIAP até 19/11, 23h59.**
+- **18/11/2026, PC 2 (cont.):** atualizei no Colab compartilhado a conclusão nova e a frase da Seção 4 (só markdown, salvo no Drive). Três agentes escreveram `estudo/Guia_do_codigo_AcessaMetro.md`, com as 15 células explicadas linha a linha e as perguntas prováveis do professor. Achado do guia: o filtro de palavras de `validar_resposta` não pega "funcionam perfeitamente"; quem barrou o FZC-009 foi a checagem de coerência. **Falta só a dupla enviar o zip no Portal FIAP.**
 
 ## 10. Se a dupla perguntar sobre o conteúdo (possíveis perguntas da defesa)
 
