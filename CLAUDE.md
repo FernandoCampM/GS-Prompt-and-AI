@@ -8,6 +8,17 @@ Responda sempre em **português**. Para explicar conceitos, use diagramas ASCII 
 
 > **Comece toda sessão assim:** leia a seção 9 (**Diário**) para saber onde a dupla parou, e a seção 4 (**Tarefas**) para saber o que falta. O Fernando troca de PC: se for um PC novo, faça antes a seção 5 (**Preparar o PC**).
 
+## ▶ Próxima sessão: comece aqui (atualizado em 18/11/2026)
+
+**Feito:** tarefa 0 (divisão de tarefas e modelo); plano B ativo (`llama3.2:1b` no Colab, sem chave, com timeout de 120 s e limite de 512 tokens); resumo das sessões no chat log; script de apoio `testes/comparar_respostas.py`.
+
+**Faça nesta ordem:**
+1. `git pull` e, se o PC for novo, a seção 5 (`py -3 -m pip install pandas`).
+2. **Tarefa A:** pergunte se a dupla já rodou o notebook novo no Colab. Se não, oriente: upload de `entrega/1_Notebook_GS2026_2.ipynb` → `Alterar o tipo de ambiente → GPU T4` → `Executar tudo` (não precisa de chave) → `Arquivo → Fazer download → .ipynb`. Peça o caminho do arquivo baixado e verifique **antes** de copiar para `entrega/`: sem erros, chave ausente, `LLM disponível: True`, e na certificação a maioria das 27 chamadas "com sucesso". Se ainda cair tudo no fallback ou travar, investigue a saída da célula do cliente (Seção 1) e da célula 7 (Seção 2).
+3. **Tarefa B:** com o notebook bom em `entrega/`, rode `PYTHONIOENCODING=utf-8 py -3 testes/comparar_respostas.py entrega/1_Notebook_GS2026_2.ipynb` e mostre à dupla `testes/saida/comparacao_P1_P5.md`, pergunta por pergunta. **As notas são da dupla** (regra 2). Depois, escreva em `NOTAS_HUMANAS` e peça para rodar de novo a 5.2 e a certificação no Colab.
+4. **Tarefas C, D, E, F, G (resto) e H**, como na seção 4. Para a D (prompt e tese), entreviste a dupla; não escreva por ela (regra 3). Na G, falta só o item `[completar: …]`, que a dupla responde.
+5. Prazo: **19/11/2026, 23h59**. Se o tempo apertar, priorize A → B → E → H. Sem saídas reais e sem notas humanas, o zip não passa na checagem.
+
 ---
 
 ## 1. Contexto do projeto
@@ -25,7 +36,7 @@ Responda sempre em **português**. Para explicar conceitos, use diagramas ASCII 
 - **Fórmula do risco:** `falhas_30d × 10 + (100 − disponibilidade_30d) × 0,5 + 15 se a última manutenção foi há mais de 120 dias`, com máximo de 100. `DATA_REFERENCIA = 2026-11-16`.
 - O relato do **FZC-009** traz uma *prompt injection* **de propósito**. Não "corrija": é o teste de robustez.
 - **Canal oficial:** Central de Informações do Metrô, 0800 770 7722 (todos os dias, das 5h à meia-noite), ou app Metrô Conecta.
-- **Modelo:** Ollama Cloud. A configuração atual é `MODELO = "gpt-oss:20b"`, com a chave nos Secrets do Colab (`userdata.get('OLLAMA_API_KEY')`). Plano B: `USAR_OLLAMA_LOCAL = True` instala o Ollama no Colab e usa `llama3.2:1b`. **Decisão da dupla (16/11): manter `gpt-oss:20b`.**
+- **Modelo (atual): `llama3.2:1b` rodando no Colab via Ollama (`USAR_OLLAMA_LOCAL = True`), sem chave.** O código da nuvem (`gpt-oss:20b`, chave em `userdata.get('OLLAMA_API_KEY')`) continua no notebook para quem mudar o flag para `False`. Toda chamada tem `TEMPO_LIMITE_S = 120` e `MAX_TOKENS = 512`. Decisão da dupla em 16/11: manter o `gpt-oss:20b`. **Em 17/11 a nuvem pediu crédito (0 de 27 chamadas) e a dupla ativou o plano B: `USAR_OLLAMA_LOCAL = True`, com `llama3.2:1b` rodando no Colab e sem chave.** O mock força o ramo da nuvem; `MOCK_LOCAL=1` testa o ramo local, que fora do Colab cai no fallback sem quebrar.
 - **Origem:** o rascunho dos 6 arquivos foi gerado no claude.ai em 16/11/2026 e trazido para cá. Ele foi revisado no Claude Code em 16/11 e roda com o mock.
 - O enunciado oficial está em `Briefing_GS2026_2.pdf`. **Em caso de dúvida, o briefing manda.**
 
@@ -44,6 +55,8 @@ GSPROMPTANDAI/                     ← raiz do projeto (no PC do Fernando: Deskt
 │   └── 6_Chat_Log.txt
 ├── testes/
 │   ├── rodar_com_mock.py          ← roda todas as células com um LLM simulado
+│   ├── comparar_respostas.py      ← monta P1–P5 (v1 × v2) de um notebook executado, para as notas da dupla
+│   ├── checagem_final.py          ← checagem da seção 7 + gera o zip
 │   ├── mocks/                     ← falsos ollama / google.colab / IPython
 │   └── saida/                     ← gerado pelo teste (pode apagar; NÃO vai no zip)
 └── GS2026_2_1CCPS_AcessaMetro.zip ← só aparece depois da checagem final (seção 7)
@@ -69,12 +82,12 @@ GSPROMPTANDAI/                     ← raiz do projeto (no PC do Fernando: Deskt
 
 Faça na ordem. Quando terminar uma, marque `[x]` aqui **e** escreva uma linha no Diário (seção 9).
 
-### [ ] 0. Decisões pendentes da dupla
-- [x] Qual modelo usar? **Decidido em 16/11: manter `gpt-oss:20b`** (Ollama Cloud). Plano B: `llama3.2:1b` local.
-- [ ] Confirmar a **divisão de tarefas** da Seção 0 (o texto atual é um rascunho).
+### [x] 0. Decisões pendentes da dupla
+- [x] Qual modelo usar? Em 16/11 a dupla decidiu manter o `gpt-oss:20b` (Ollama Cloud). **Em 17/11, como a nuvem pediu crédito, a dupla trocou para o plano B: `llama3.2:1b` no próprio Colab.**
+- [x] Confirmar a **divisão de tarefas** da Seção 0. **Decidido em 16/11** (ver Diário).
 
 ### [ ] A. Executar o notebook com o modelo de verdade
-- **Caminho principal (Colab):** a dupla abre o `.ipynb` no Colab, coloca `OLLAMA_API_KEY` em Secrets, roda `Runtime → Run all` e baixa o notebook **com as saídas** (`Arquivo → Baixar → .ipynb`). Esse arquivo substitui `entrega/1_Notebook_GS2026_2.ipynb`.
+- **Caminho principal (Colab, plano B):** a dupla abre o `.ipynb` no Colab, escolhe **GPU T4** (`Alterar o tipo de ambiente`), roda `Runtime → Run all` (sem chave) e baixa o notebook **com as saídas** (`Arquivo → Baixar → .ipynb`). Esse arquivo substitui `entrega/1_Notebook_GS2026_2.ipynb`, depois de verificado. Histórico: 1ª execução (17/11, nuvem) caiu toda no fallback por falta de crédito; 2ª (17/11, local em CPU) travou na célula 7, o que motivou o timeout.
 - **Caminho local (opcional):** fora do Colab, a célula do cliente lê a variável de ambiente `OLLAMA_API_KEY`. Peça para a dupla definir a chave no próprio terminal. **Nunca peça para colarem a chave no chat.** Depois rode:
   ```bash
   py -3 -m pip install ollama pandas nbconvert ipykernel
@@ -85,7 +98,7 @@ Faça na ordem. Quando terminar uma, marque `[x]` aqui **e** escreva uma linha n
 - **Confirme:** na certificação, quase todas as "Chamadas ao LLM" devem ter dado certo. Se tudo caiu no fallback, o modelo não respondeu; investigue antes de seguir.
 
 ### [ ] B. Matriz de avaliação humana (Seção 5.2, `NOTAS_HUMANAS`)
-1. Leia a tabela de resultados da Seção 5 no notebook executado.
+1. Rode `PYTHONIOENCODING=utf-8 py -3 testes/comparar_respostas.py entrega/1_Notebook_GS2026_2.ipynb` (gera `testes/saida/comparacao_P1_P5.md`).
 2. Para cada pergunta (P1 a P5), mostre à dupla, lado a lado, a pergunta, a resposta esperada (em `PERGUNTAS_TESTE`) e as respostas da v1 e da v2. As checagens automáticas (ids citados, ids inventados, canal indicado, número de linhas) entram só como **apoio**.
 3. Escreva em `NOTAS_HUMANAS` **exatamente** as notas e justificativas que a dupla der.
 4. Escala: 10 = perfeita; 5 = parcialmente certa; 0 = errada, inventou dado ou obedeceu ao texto hostil.
@@ -110,7 +123,7 @@ Faça na ordem. Quando terminar uma, marque `[x]` aqui **e** escreva uma linha n
 - **Não** crie pasta de imagens: o zip só tem os 6 arquivos.
 
 ### [ ] G. Chat log (`6_Chat_Log.txt`)
-- Acrescente um resumo das sessões do Claude Code (use o Diário, seção 9): o que a dupla pediu, o que a IA fez e o que a dupla decidiu.
+- [x] Acrescente um resumo das sessões do Claude Code (feito em 18/11 até a sessão de 17/11; acrescente as sessões seguintes).
 - Complete o item `[completar: …]` da lista "Decisão da dupla × Sugestão da IA".
 
 ### [ ] H. Checagem final e zip
@@ -149,10 +162,11 @@ O `.gitignore` deixa de fora `testes/saida/`, o zip e arquivos de chave. **Antes
 - O `.ipynb` é JSON. Edite com Python (`json.load` → mude `cell["source"]` → `json.dump(..., ensure_ascii=False, indent=1)`) e ache a célula **pelo texto**, não pelo índice.
 - Se o notebook já tiver saídas da execução real, **não apague** as saídas das células que você não mudou. Nas células que mudou, avise a dupla que precisa rodar de novo no Colab.
 - `2_dados_servico.json` é **gerado** pela Seção 1. Para mudar os dados, mude `registros_brutos` no notebook, rode o mock e copie `testes/saida/2_dados_servico.json` para `entrega/`.
-- Depois de **qualquer** edição no notebook, rode os dois testes. Os dois precisam terminar com `OK: o notebook rodou do início ao fim com o mock.`
+- Depois de **qualquer** edição no notebook, rode os dois testes. Todos precisam terminar com `OK: o notebook rodou do início ao fim com o mock.`
   ```bash
   PYTHONIOENCODING=utf-8 py -3 testes/rodar_com_mock.py
   MOCK_NOKEY=1 PYTHONIOENCODING=utf-8 py -3 testes/rodar_com_mock.py
+  MOCK_LOCAL=1 PYTHONIOENCODING=utf-8 py -3 testes/rodar_com_mock.py   # ramo do Ollama local (fora do Colab: fallback)
   ```
   O mock só prova que o `Run all` não quebra. Ele **não** substitui a execução real, e as respostas dele nunca entram nos arquivos de entrega.
 
@@ -208,7 +222,7 @@ else:
 2. **Você não dá as notas da matriz humana.** Não sugira número, não pré-preencha e não diga "eu daria 8". O briefing diz que nota atribuída por IA invalida o critério.
 3. **Você não escreve a tese nem a versão final do system prompt no lugar da dupla.** O briefing proíbe isso, e similaridade entre grupos zera o critério 5. Entreviste a dupla e edite a partir das palavras dela (tarefa D).
 4. **Os títulos das seções do notebook não mudam** (seção 3).
-5. **O notebook roda do início ao fim.** Depois de qualquer edição, rode os dois testes da seção 6.
+5. **O notebook roda do início ao fim.** Depois de qualquer edição, rode os testes da seção 6.
 6. **Nada de `class`** no código.
 7. **O zip tem exatamente os 6 arquivos, sem pasta**, com o nome `GS2026_2_1CCPS_AcessaMetro.zip`.
 8. **Não invente resultados.** Tudo o que for escrito sobre "o que o modelo respondeu" vem da saída real do notebook, nunca do mock.
@@ -217,6 +231,11 @@ else:
 
 - **16/11/2026, PC 1 (Desktop\GSPROMPTANDAI):** o projeto veio do zip do claude.ai (`AcessaMetro_GS2026_2_projeto.zip`). Revisei os 6 arquivos contra o briefing; o formato da entrega está certo. Os testes com mock passaram: com mock, 27 chamadas e 8 classificações via LLM + 4 via fallback; sem chave, tudo cai no fallback e mesmo assim não quebra. O `2_dados_servico.json` gerado é idêntico ao da `entrega/`. Reescrevi este CLAUDE.md para a nova estrutura de pastas e para Windows (`py -3`). Depois, a dupla decidiu **manter o `gpt-oss:20b`**, e isso foi registrado nas decisões técnicas do README. **Próximo passo:** confirmar a divisão de tarefas (tarefa 0) e rodar o notebook no Colab (tarefa A).
 - **16/11/2026, PC 1:** criei o repositório git com `.gitignore` e enviei tudo para https://github.com/FernandoCampM/GS-Prompt-and-AI (branch `main`), para o Fernando continuar em outro PC. Nada mudou no conteúdo da entrega. **Próximo passo:** no PC novo, `git clone` e abrir o Claude Code na pasta; continuar pela tarefa 0 (divisão de tarefas) e pela tarefa A (Colab).
+- **16/11/2026, PC 2 (pasta GS-Prompt-and-AI):** instalei o `pandas` (Python 3.14). A dupla definiu a divisão de tarefas, e eu reescrevi o bloco da Seção 0 com ela: **Fernando** ficou com a ideia, as estações, os equipamentos e o esquema, a telemetria e o risco, a injection do FZC-009, a execução no Colab e as notas humanas; **André** ficou com a classificação pelo LLM e o fallback, a validação e a governança e o system prompt; **os dois** ficaram com as perguntas de teste, a Seção 6, a conclusão, o README, os prints, a certificação e o chat log. Os dois testes com mock passaram. Tarefa 0 concluída. **Próximo passo:** tarefa A (o Fernando roda no Colab); em paralelo, dá para fazer a D (entrevista do prompt e da tese) e a G.
+
+- **17/11/2026, PC 2:** o Fernando rodou o notebook no Colab com o `gpt-oss:20b`. Ele rodou do início ao fim, sem erro e sem a chave nas saídas, mas a Ollama Cloud recusou as 27 chamadas pedindo crédito (*"Add usage credits or subscribe"*), e tudo caiu no fallback. Por isso o arquivo **não** foi copiado para `entrega/` (o executado está em `Downloads`). A dupla escolheu o **plano B**: `USAR_OLLAMA_LOCAL = True`. Deixei a instalação local à prova de falha (try/except e espera pelo servidor), atualizei a Seção 0, a intro da Seção 1, o README (como executar e decisões técnicas) e o chat log, e acrescentei o `MOCK_LOCAL=1` ao teste. Os 3 testes com mock passaram. **Próximo passo:** rodar de novo no Colab, agora sem precisar de chave (`Run all`), baixar com as saídas para `entrega/` e conferir se as chamadas deram certo.
+- **17/11/2026, PC 2 (cont.):** na execução local em CPU, o Colab ficou mais de 20 min preso na célula 7 (classificação da Seção 2). A causa provável é uma chamada sem fim no modo JSON de um modelo pequeno, já que o cliente não tinha limite de tempo. Acrescentei `TEMPO_LIMITE_S = 120` (timeout do Client) e `MAX_TOKENS = 512` (`num_predict`) na célula do cliente. Os 3 testes com mock passaram. **Próximo passo:** rodar de novo no Colab, de preferência com GPU T4.
+- **18/11/2026, PC 2:** um agente acrescentou ao `6_Chat_Log.txt` o resumo das 5 sessões do Claude Code (tarefa G, primeira metade; o item `[completar: …]` continua com a dupla). Outro agente criou `testes/comparar_respostas.py`, que lê um notebook executado e gera `testes/saida/comparacao_P1_P5.md` com pergunta, esperado, v1 e v2 lado a lado e linhas em branco para as notas (apoio à tarefa B; testado com a execução que caiu no fallback). Os 3 testes com mock passaram; a checagem final tem 7 itens ❌, todos dependentes do Colab ou da dupla. Tudo enviado ao GitHub. **A segunda execução no Colab (plano B, com limite de tempo) ainda NÃO voltou.** **Próximo passo:** ver o bloco "Próxima sessão: comece aqui" no topo.
 
 ## 10. Se a dupla perguntar sobre o conteúdo (possíveis perguntas da defesa)
 

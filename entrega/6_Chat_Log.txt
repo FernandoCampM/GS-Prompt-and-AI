@@ -36,6 +36,36 @@ Depois gerou um rascunho dos 6 arquivos: notebook, JSON, prompts_kit, README, ce
 IA (resumo): colocou a turma 1CCPS no notebook, no README e na certificação. Criou um CLAUDE.md (fora do zip) com o contexto do projeto, as regras invioláveis e as tarefas que faltam, para a dupla terminar com o Claude Code. Regras principais: a IA não dá as notas humanas, não escreve a tese nem o prompt final no lugar da dupla, e nunca expõe a chave. Acrescentou ao notebook a leitura da chave por variável de ambiente, para rodar fora do Colab.
 
 ======================================================================
+SESSÕES NO CLAUDE CODE (resumo, em ordem cronológica)
+
+Ferramenta: Claude Code, com o CLAUDE.md do projeto. Cada entrada abaixo vem do Diário do CLAUDE.md.
+
+16/11/2026 · PC 1 · revisão dos 6 arquivos
+  A dupla pediu: continuar o projeto no Claude Code, a partir do rascunho trazido do claude.ai (AcessaMetro_GS2026_2_projeto.zip).
+  A IA fez: revisou os 6 arquivos contra o briefing (o formato da entrega está certo) e rodou os testes com um modelo simulado (mock). Com mock, 27 chamadas e 8 classificações via LLM + 4 via fallback; sem chave, tudo cai no fallback e não quebra. Conferiu que o 2_dados_servico.json gerado é idêntico ao da entrega. Reescreveu o CLAUDE.md para a nova estrutura de pastas e para Windows.
+  A dupla decidiu: manter o gpt-oss:20b (Ollama Cloud). Isso foi registrado nas decisões técnicas do README.
+
+16/11/2026 · PC 1 · repositório no GitHub
+  A dupla pediu: levar o projeto para outro PC (o Fernando troca de computador).
+  A IA fez: criou o repositório git com .gitignore e enviou tudo para o GitHub (branch main). Nada mudou no conteúdo da entrega.
+  A dupla decidiu: continuar em outro PC, com git clone e abrindo o Claude Code na pasta.
+
+16/11/2026 · PC 2 · divisão de tarefas
+  A dupla pediu: confirmar a divisão de tarefas da Seção 0 do notebook (o texto era um rascunho).
+  A IA fez: instalou o pandas, reescreveu o bloco da Seção 0 com a divisão que a dupla definiu e rodou os dois testes com mock, que passaram.
+  A dupla decidiu: Fernando ficou com a ideia, as estações, os equipamentos e o esquema, a telemetria e o risco, a injection do FZC-009, a execução no Colab e as notas humanas. André ficou com a classificação pelo LLM e o fallback, a validação e a governança e o system prompt. Os dois ficaram com as perguntas de teste, a Seção 6, a conclusão, o README, os prints, a certificação e o chat log.
+
+17/11/2026 · PC 2 · Ollama Cloud pediu crédito
+  A dupla pediu: rodar o notebook no Colab com o gpt-oss:20b (o Fernando rodou).
+  A IA fez: viu que o notebook rodou do início ao fim, sem erro e sem a chave nas saídas, mas que a Ollama Cloud recusou as 27 chamadas (0 de 27) pedindo crédito, e tudo caiu no fallback. Por isso o arquivo executado não foi copiado para entrega/. Deixou a instalação local do Ollama à prova de falha (try/except e espera pelo servidor), atualizou a Seção 0, a intro da Seção 1, o README e este chat log, e acrescentou o MOCK_LOCAL=1 ao teste. Os 3 testes com mock passaram.
+  A dupla decidiu: o plano B, USAR_OLLAMA_LOCAL = True, com o llama3.2:1b rodando no próprio Colab (sem chave).
+
+17/11/2026 · PC 2 (cont.) · célula 7 travou no Colab
+  A dupla pediu: rodar de novo o notebook no Colab com o modelo local (na execução em CPU, o Colab ficou mais de 20 min preso na célula 7, a classificação da Seção 2).
+  A IA fez: apontou como causa provável uma chamada sem fim no modo JSON de um modelo pequeno, já que o cliente não tinha limite de tempo. Acrescentou TEMPO_LIMITE_S = 120 (timeout do Client) e MAX_TOKENS = 512 (num_predict) na célula do cliente. Os 3 testes com mock passaram.
+  A dupla decidiu: rodar de novo no Colab, de preferência com GPU T4 (próximo passo registrado no Diário).
+
+======================================================================
 O QUE FOI DECISÃO DA DUPLA × SUGESTÃO DA IA
 
 Decisão da dupla:
@@ -52,4 +82,4 @@ Sugestão da IA, revisada pela dupla:
 - Regras de validação/fallback ("IA pode subir a urgência, não rebaixar"; o fallback nunca usa o relato).
 - Rascunho do código das Seções 1 a 7 e dos textos do README.
 
-Uso de IA dentro da solução: o modelo da Ollama Cloud classifica a urgência, reescreve o relato do cidadão e responde como assistente. Toda saída é validada pelo código.
+Uso de IA dentro da solução: o modelo llama3.2:1b (Ollama rodando no próprio Colab; plano B, porque a Ollama Cloud pediu crédito) classifica a urgência, reescreve o relato do cidadão e responde como assistente. Toda saída é validada pelo código.

@@ -28,7 +28,7 @@ O Acessa Metrô usa uma base de equipamentos com telemetria (simulada no estilo 
            ┌─────────────────────┴─────────────────────┐
            ▼                                           ▼
    risco_falha (regra 0–100)                 assistente "Acessa Metrô"
-   + urgência pelo LLM                       (system prompt v2, Ollama Cloud)
+   + urgência pelo LLM                       (system prompt v2, llama3.2:1b via Ollama no Colab)
    + validação e fallback                              │
            │                                           ▼
            ▼                              CIDADÃO: "o elevador da Sé funciona?"
@@ -42,11 +42,11 @@ O Acessa Metrô usa uma base de equipamentos com telemetria (simulada no estilo 
 ## 3. Como executar
 
 1. Abra `1_Notebook_GS2026_2.ipynb` no Google Colab.
-2. Clique no ícone de chave (🔑 **Secrets**) na barra lateral, crie o segredo `OLLAMA_API_KEY` com a sua chave da Ollama Cloud e ative "Notebook access".
-3. `Runtime → Run all`.
+2. `Runtime → Run all`. Não precisa de chave: com `USAR_OLLAMA_LOCAL = True` (o padrão da entrega), a célula do cliente instala o Ollama no próprio Colab e baixa o `llama3.2:1b` (de 1 a 3 minutos na primeira vez).
+3. *(Opcional, para usar a nuvem)* mude `USAR_OLLAMA_LOCAL = False`, clique no ícone de chave (🔑 **Secrets**), crie o segredo `OLLAMA_API_KEY` e ative "Notebook access".
 4. Ao final, a última célula imprime a **certificação** (copiada para `5_certificacao.txt`).
 
-- **Sem chave ou sem crédito na Ollama Cloud?** O notebook não quebra: todas as etapas com IA caem no fallback por regra, e isso aparece na coluna `fonte` e na certificação. Para usar um modelo de verdade sem a nuvem, mude `USAR_OLLAMA_LOCAL = True` na célula de configuração (instala o Ollama no próprio Colab e usa `llama3.2:1b`).
+- **O modelo não respondeu?** O notebook não quebra: se a instalação local falhar (ou, na nuvem, faltar chave ou crédito), todas as etapas com IA caem no fallback por regra, e isso aparece na coluna `fonte` e na certificação.
 - **O Colab caiu no meio?** Rode de novo a partir da Seção 1. O `2_dados_servico.json` é regravado e não depende do LLM.
 - A chave **nunca** aparece no código: é lida com `userdata.get('OLLAMA_API_KEY')`.
 
@@ -83,7 +83,7 @@ O Acessa Metrô usa uma base de equipamentos com telemetria (simulada no estilo 
 | **Interpretação da regra 1** | O texto da regra 1 no briefing é ambíguo; seguimos a tabela do esquema: se o status **não** é `ativo`, o motivo é obrigatório. Motivo vazio vira "Motivo não informado pela operação" e é contado. |
 | **`acessivel` desconhecido vira `false`** | Na dúvida, é melhor não prometer acessibilidade do que mandar um cadeirante para um equipamento que não serve. |
 | **Horário normalizado para minutos** | `"08:00"` é texto. Convertemos para minutos antes de comparar, tratamos o fim à meia-noite (`04:40–00:00`) e o caso `"24h"`. |
-| **Modelo `gpt-oss:20b` na Ollama Cloud** | Escolha da dupla: é gratuito na nuvem e roda no Colab sem instalar nada. O plano B é o `llama3.2:1b` rodando no próprio Colab (`USAR_OLLAMA_LOCAL = True`), caso a nuvem peça crédito. Nos dois casos, toda saída do modelo passa pela validação da Seção 3. |
+| **Modelo `llama3.2:1b` rodando no próprio Colab (plano B)** | A escolha inicial da dupla era o `gpt-oss:20b` na Ollama Cloud. Na execução de 17/11, a nuvem recusou as 27 chamadas pedindo crédito (*"Add usage credits or subscribe"*), e o briefing exige rodar sem API paga. Por isso a dupla ativou o plano B (`USAR_OLLAMA_LOCAL = True`): o Ollama é instalado no Colab e roda o `llama3.2:1b`, grátis e sem chave. O modelo é bem menor, o que pesa na qualidade das respostas (ver a matriz da Seção 5). O código da nuvem continua no notebook. Nos dois casos, toda saída do modelo passa pela validação da Seção 3. |
 | **Temperatura 0,1 (classificação) e 0,2 (assistente)** | Respostas estáveis: o mesmo registro deve receber sempre a mesma classe, e a mesma pergunta deve dar a mesma resposta (critério de consistência). |
 | **Fallback nunca usa o relato** | O relato do cidadão pode ser hostil (o FZC-009 tem uma injection de propósito). Quando a resposta da IA é rejeitada, o resumo é montado só com o dado oficial. |
 | **IA pode subir a urgência, mas não rebaixar** | Se a IA disser `ok` para um elevador interditado, a resposta é rejeitada e a regra assume. Se ela for mais cautelosa que a regra, aceitamos. |
@@ -103,4 +103,4 @@ O Acessa Metrô usa uma base de equipamentos com telemetria (simulada no estilo 
 ## 8. Como a IA foi usada
 
 - **No desenvolvimento:** usamos o Claude para rascunhar o código, sugerir a estrutura do prompt e revisar textos. A ideia (monitorar a saúde dos equipamentos para manter o funcionamento perto de 100% e priorizar a manutenção), a escolha da frente, a fórmula de risco, as regras de fallback e as **notas da matriz de avaliação** são da dupla. Registro completo em `6_Chat_Log.txt`.
-- **Dentro da solução:** o modelo da Ollama Cloud classifica a urgência, reescreve o relato e responde como assistente. Toda saída dele é validada antes de ser usada.
+- **Dentro da solução:** o modelo `llama3.2:1b` (Ollama no Colab) classifica a urgência, reescreve o relato e responde como assistente. Toda saída dele é validada antes de ser usada.
