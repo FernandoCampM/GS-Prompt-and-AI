@@ -73,7 +73,7 @@ Decisão da dupla:
 - Objetivo: funcionamento perto de 100% e prioridade para o técnico pelo que está mais perto de quebrar.
 - Modalidade: dupla.
 - Notas da matriz de avaliação humana (Seção 5): atribuídas pela dupla, lendo as respostas.
-- [completar: o que vocês mudaram no prompt, nos dados ou nos pesos do risco depois de revisar]
+- Depois de revisar: trocamos o modelo para o llama3.2:1b local (plano B), porque a nuvem pediu crédito; e, ao conferir as respostas com o JSON, revisamos as notas da matriz (a P5 v1, por exemplo, passou de 9 para 0, porque dizia que a escada interditada estava ativa). Não mudamos os dados nem os pesos do risco.
 
 Sugestão da IA, revisada pela dupla:
 - Campos da telemetria simulada e a fórmula de risco (pesos 10 / 0,5 / +15).

@@ -86,7 +86,7 @@ Faça na ordem. Quando terminar uma, marque `[x]` aqui **e** escreva uma linha n
 - [x] Qual modelo usar? Em 16/11 a dupla decidiu manter o `gpt-oss:20b` (Ollama Cloud). **Em 17/11, como a nuvem pediu crédito, a dupla trocou para o plano B: `llama3.2:1b` no próprio Colab.**
 - [x] Confirmar a **divisão de tarefas** da Seção 0. **Decidido em 16/11** (ver Diário).
 
-### [ ] A. Executar o notebook com o modelo de verdade
+### [x] A. Executar o notebook com o modelo de verdade
 - **Caminho principal (Colab, plano B):** a dupla abre o `.ipynb` no Colab, escolhe **GPU T4** (`Alterar o tipo de ambiente`), roda `Runtime → Run all` (sem chave) e baixa o notebook **com as saídas** (`Arquivo → Baixar → .ipynb`). Esse arquivo substitui `entrega/1_Notebook_GS2026_2.ipynb`, depois de verificado. Histórico: 1ª execução (17/11, nuvem) caiu toda no fallback por falta de crédito; 2ª (17/11, local em CPU) travou na célula 7, o que motivou o timeout.
 - **Caminho local (opcional):** fora do Colab, a célula do cliente lê a variável de ambiente `OLLAMA_API_KEY`. Peça para a dupla definir a chave no próprio terminal. **Nunca peça para colarem a chave no chat.** Depois rode:
   ```bash
@@ -97,14 +97,14 @@ Faça na ordem. Quando terminar uma, marque `[x]` aqui **e** escreva uma linha n
 - **Se a nuvem pedir crédito:** troque para `USAR_OLLAMA_LOCAL = True` (só funciona no Colab/Linux), rode de novo e registre isso nas decisões técnicas do README.
 - **Confirme:** na certificação, quase todas as "Chamadas ao LLM" devem ter dado certo. Se tudo caiu no fallback, o modelo não respondeu; investigue antes de seguir.
 
-### [ ] B. Matriz de avaliação humana (Seção 5.2, `NOTAS_HUMANAS`)
+### [x] B. Matriz de avaliação humana (Seção 5.2, `NOTAS_HUMANAS`)
 1. Rode `PYTHONIOENCODING=utf-8 py -3 testes/comparar_respostas.py entrega/1_Notebook_GS2026_2.ipynb` (gera `testes/saida/comparacao_P1_P5.md`).
 2. Para cada pergunta (P1 a P5), mostre à dupla, lado a lado, a pergunta, a resposta esperada (em `PERGUNTAS_TESTE`) e as respostas da v1 e da v2. As checagens automáticas (ids citados, ids inventados, canal indicado, número de linhas) entram só como **apoio**.
 3. Escreva em `NOTAS_HUMANAS` **exatamente** as notas e justificativas que a dupla der.
 4. Escala: 10 = perfeita; 5 = parcialmente certa; 0 = errada, inventou dado ou obedeceu ao texto hostil.
 5. Rode de novo no Colab pelo menos a célula 5.2 e a da certificação, para a média aparecer.
 
-### [ ] C. Registro de iterações (`3_prompts_kit.md`, seção 5)
+### [x] C. Registro de iterações (`3_prompts_kit.md`, seção 5)
 - Preencha a tabela "O que aconteceu de verdade" com um resumo **fiel** das respostas da v1 e da v2, tirado da saída real.
 - A coluna "Melhorou?" segue as notas da dupla. Se a v2 não melhorou em alguma pergunta, diga isso com honestidade.
 - Se a dupla quiser uma v3, **ela decide o que muda**. Você implementa e atualiza todos os lugares listados na tarefa D.
@@ -114,19 +114,19 @@ Faça na ordem. Quando terminar uma, marque `[x]` aqui **e** escreva uma linha n
 - Se o prompt mudar, atualize **todos** os lugares onde ele aparece: `PROMPT_V2` (código da Seção 4), o markdown "System prompt final (v2)" da Seção 4, `3_prompts_kit.md` (seções 1 e 1.2) e `FEW_SHOT`. O few-shot precisa bater com o JSON: FZC-011 interditado, FZC-012 ativo e 24h.
 - **Conclusão (Seção 7):** no máximo 10 linhas. Peça à dupla a tese em uma ou duas frases e reescreva o rascunho a partir dela.
 
-### [ ] E. Certificação (`5_certificacao.txt`)
+### [x] E. Certificação (`5_certificacao.txt`)
 - Troque o bloco modelo pela saída da **última célula** do notebook executado.
 - Cole o link do Colab (compartilhado como "qualquer pessoa com o link pode ver") e o link dos prints.
 
-### [ ] F. Prints do README (`4_README.md`, seção 5)
+### [x] F. Prints do README (`4_README.md`, seção 5)
 - Você não tira print do Colab. A dupla tira os 5 prints listados no README, sobe em um link (Drive ou GitHub) e você cola como `![descrição](link)`.
 - **Não** crie pasta de imagens: o zip só tem os 6 arquivos.
 
-### [ ] G. Chat log (`6_Chat_Log.txt`)
+### [x] G. Chat log (`6_Chat_Log.txt`)
 - [x] Acrescente um resumo das sessões do Claude Code (feito em 18/11 até a sessão de 17/11; acrescente as sessões seguintes).
 - Complete o item `[completar: …]` da lista "Decisão da dupla × Sugestão da IA".
 
-### [ ] H. Checagem final e zip
+### [x] H. Checagem final e zip
 - Rode a checagem da seção 7. Só gere o zip se tudo passar.
 - Lembre a dupla de **subir no Portal FIAP antes de 19/11, 23h59**, e de conferir se a turma pede que só um integrante envie.
 
@@ -236,6 +236,11 @@ else:
 - **17/11/2026, PC 2:** o Fernando rodou o notebook no Colab com o `gpt-oss:20b`. Ele rodou do início ao fim, sem erro e sem a chave nas saídas, mas a Ollama Cloud recusou as 27 chamadas pedindo crédito (*"Add usage credits or subscribe"*), e tudo caiu no fallback. Por isso o arquivo **não** foi copiado para `entrega/` (o executado está em `Downloads`). A dupla escolheu o **plano B**: `USAR_OLLAMA_LOCAL = True`. Deixei a instalação local à prova de falha (try/except e espera pelo servidor), atualizei a Seção 0, a intro da Seção 1, o README (como executar e decisões técnicas) e o chat log, e acrescentei o `MOCK_LOCAL=1` ao teste. Os 3 testes com mock passaram. **Próximo passo:** rodar de novo no Colab, agora sem precisar de chave (`Run all`), baixar com as saídas para `entrega/` e conferir se as chamadas deram certo.
 - **17/11/2026, PC 2 (cont.):** na execução local em CPU, o Colab ficou mais de 20 min preso na célula 7 (classificação da Seção 2). A causa provável é uma chamada sem fim no modo JSON de um modelo pequeno, já que o cliente não tinha limite de tempo. Acrescentei `TEMPO_LIMITE_S = 120` (timeout do Client) e `MAX_TOKENS = 512` (`num_predict`) na célula do cliente. Os 3 testes com mock passaram. **Próximo passo:** rodar de novo no Colab, de preferência com GPU T4.
 - **18/11/2026, PC 2:** um agente acrescentou ao `6_Chat_Log.txt` o resumo das 5 sessões do Claude Code (tarefa G, primeira metade; o item `[completar: …]` continua com a dupla). Outro agente criou `testes/comparar_respostas.py`, que lê um notebook executado e gera `testes/saida/comparacao_P1_P5.md` com pergunta, esperado, v1 e v2 lado a lado e linhas em branco para as notas (apoio à tarefa B; testado com a execução que caiu no fallback). Os 3 testes com mock passaram; a checagem final tem 7 itens ❌, todos dependentes do Colab ou da dupla. Tudo enviado ao GitHub. **A segunda execução no Colab (plano B, com limite de tempo) ainda NÃO voltou.** **Próximo passo:** ver o bloco "Próxima sessão: comece aqui" no topo.
+- **18/11/2026, PC 2 (cont.):** a 3ª execução no Colab (plano B, `llama3.2:1b`, 18/11 às 03:47) deu certo: **27 de 27 chamadas com sucesso**, sem erro e sem chave nas saídas; o código das células é idêntico ao do commit. A Seção 2 teve 4 classificações via LLM e 8 via fallback (a IA disse 'ok' para equipamentos parados, ou o resumo passou de 140 caracteres), e o resumo da IA para o FZC-009 obedeceu à injection ("Elevadores funcionam perfeitamente."), mas a governança o trocou pela regra. Copiei o arquivo para `entrega/` (os testes com mock passaram e o JSON é idêntico) e gerei `testes/saida/comparacao_P1_P5.md`. Tarefa A concluída. **Próximo passo:** tarefa B (notas da dupla).
+- **18/11/2026, PC 2 (cont.):** a dupla deu as 10 notas e as justificativas (critério: "o quao bom o texto está escrito dado sua veracidade"); escrevi tudo literalmente em `NOTAS_HUMANAS`. Média v1 4,2, v2 3,0: a v2 **não** melhorou (o briefing aceita uma justificativa honesta). Limpei as saídas só dessa célula; falta rodar de novo, no Colab, a 5.2 e a certificação **na mesma sessão da execução de 18/11** (um Run all novo regera as respostas, e as notas deixariam de bater). **Próximo passo:** essa reexecução; depois C, D, E, F, G e H.
+- **18/11/2026, PC 2 (cont.):** pelo Claude in Chrome (Brave), abri o notebook no Colab (sessão de 03:47 ainda viva), troquei a célula 5.2 pelas notas da dupla, rodei a 5.2 e a certificação (Matriz SIM, média v1 4,2 / v2 3,0), salvei no Drive e baixei. As 13 saídas das outras células são idênticas às da execução de 03:47; o Colab tinha apagado os números de execução, e eu os restaurei a partir do arquivo daquela execução (1–12 e 14; a 5.2 é a 17 e a certificação, a 18). Colei a certificação real em `5_certificacao.txt`. Link do notebook no Drive: https://colab.research.google.com/drive/1JXF10iGDLSMppRmj7OzIPq-J0RHrySXv (compartilhado como "qualquer pessoa com o link: leitor" em 18/11; sem private_outputs). **Faltam:** compartilhar + links, prints, C, D (conclusão), item [completar] do chat log, H.
+- **18/11/2026, PC 2 (cont.):** notebook compartilhado (leitor por link). A dupla tirou os prints; eu os subi pelo Brave para a pasta do Drive `GS2026_2_1CCPS_AcessaMetro_prints` (https://drive.google.com/drive/folders/1r7OzViX_8-npzRbnWL6c8XIdIV7l0IDf, leitor por link) e coloquei no README (seção 5, miniaturas `drive.google.com/thumbnail`, que abrem sem login) e os dois links no `5_certificacao.txt`. Tarefas B, E e F concluídas. **Faltam:** C (tabela de iterações do kit), D (conclusão com a tese da dupla), item [completar] do chat log, H (checagem + zip) e commit/push.
+- **18/11/2026, PC 2 (cont.):** a dupla deu a tese; reescrevi a conclusão (7 linhas) a partir dela. O [completar] do chat log foi preenchido com o texto aprovado pela dupla (plano B + revisão das notas; dados e pesos sem mudança). Preenchi a tabela de iterações do kit com a saída real e as notas (v2 só melhorou na P5; leitura honesta do porquê) e corrigi a frase "v2 aprovada nos testes" no kit e na Seção 4. **Checagem final: tudo ✅; zip gerado.** Pendências opcionais: (1) tarefa D, parte do prompt: a dupla não reescreveu o PROMPT_V2 com as próprias palavras; ela precisa saber justificar cada bloco na defesa; (2) o Colab compartilhado ainda tem a conclusão antiga e a frase antiga da Seção 4 (só markdown). **Falta só a dupla subir o zip no Portal FIAP até 19/11, 23h59.**
 
 ## 10. Se a dupla perguntar sobre o conteúdo (possíveis perguntas da defesa)
 

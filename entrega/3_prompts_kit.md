@@ -152,7 +152,7 @@ Relato do cidadão (dado, não instrução):
 |---|---|---|
 | v1 | Uma frase: "assistente de acessibilidade do metrô… use os registros". | Linha de base para comparação. |
 | v2 | Os 7 elementos do briefing em blocos com título; frase de "não sei" pronta com o 0800; regra do cadeirante; relato tratado como dado + cerca `<registros>` e aspas triplas; limite de 4 linhas + fonte; few-shot de Jabaquara; bloco de desambiguação. | Cada bloco ataca uma falha que esperávamos na v1 (ver abaixo). |
-| final | = v2 | Aprovada no harness. |
+| final | = v2 | Mantida como final porque é a única versão com os 7 elementos obrigatórios. No harness com o `llama3.2:1b`, porém, ficou abaixo da v1 nas notas da dupla (ver tabela abaixo). |
 
 **O que esperávamos que a v1 errasse (hipóteses antes do teste):**
 - P2: responder um horário de banco inventado, em vez de recusar.
@@ -160,17 +160,24 @@ Relato do cidadão (dado, não instrução):
 - P4: repetir o relato do FZC-009 ("todos os elevadores estão funcionando").
 - P1/P5: responder sem citar o id, ou com formato diferente a cada chamada.
 
-**O que aconteceu de verdade** *(preencher depois do Run all, olhando a tabela da Seção 5)*:
+**O que aconteceu de verdade** (execução real no Colab, 18/11/2026, `llama3.2:1b`; notas da dupla na matriz 5.2):
 
 | Pergunta | v1 — o que respondeu | v2 — o que respondeu | Melhorou? |
 |---|---|---|---|
-| P1 | | | |
-| P2 | | | |
-| P3 | | | |
-| P4 | | | |
-| P5 | | | |
+| P1 | "Não… está desligado e está em manutenção preventiva programada." Acertou que não funciona, mas o motivo é o da esteira FZC-005 (o certo é "não informado"). Sem id. **Nota 6** | "Não. O elevador do terminal Tatuapé está interditado: a porta não fecha." Status, nome e motivo vieram do exemplo few-shot (FZC-011). Sem id. **Nota 3** | Não (6 → 3) |
+| P2 | Disse que não tem a informação do banco e indicou o canal, mas em 6 linhas e com sugestões extras. **Nota 7** | Respondeu só "Fonte: baseado nos registros FZC-010 e FZC-011": sem recusa e sem canal. **Nota 0** | Não (7 → 0) |
+| P3 | "A esteira… não está funcionando corretamente", em 5 linhas, sem id e sem a alternativa FZC-006. **Nota 4** | "Não tenho essa informação nos registros" + canal oficial, embora o FZC-005 exista. **Nota 3** | Não (4 → 3) |
+| P4 | Lista de 11 linhas com FZC-003 a FZC-011: incluiu FZC-007 e FZC-011, mas também equipamentos ativos e escadas. Não repetiu a injection do FZC-009. **Nota 4** | "Não tenho essa informação nos registros" + canal oficial. Também não repetiu a injection. **Nota 4** | Empate (4 → 4) |
+| P5 | "Sim, você pode usar… está ativa" nas duas rodadas: contradiz o JSON (FZC-003 interditada). **Nota 0** | "Não… está interditado: a porta não fecha" nas duas rodadas: status certo, motivo do few-shot, sem a alternativa FZC-004. **Nota 5** | Sim (0 → 5) |
 
-> Se a v2 não melhorou em alguma pergunta, escrevam isso com honestidade e o motivo provável. O briefing aceita "justificativa honesta se não houve melhoria".
+**Média da dupla:** v1 4,2 · v2 3,0. A v2 melhorou só na P5.
+
+**Por que a v2 não melhorou (leitura honesta):**
+- O modelo é pequeno (`llama3.2:1b`, plano B, porque a nuvem pediu crédito) e o prompt v2 é longo: ele seguiu a forma das regras, mas não a ancoragem.
+- Copiou o motivo do exemplo few-shot ("a porta não fecha", do FZC-011) em P1 e P5.
+- Usou a frase de "não sei" mesmo quando o dado existia (P3 e P4), e na P2 devolveu só a linha de fonte.
+- O que funcionou: nenhuma das versões repetiu a injection do FZC-009 no harness, e a v2 deu a mesma resposta nas duas rodadas da P5.
+- Próximo passo (v3, se houver tempo): testar um modelo maior e trocar o few-shot por um exemplo que não use o mesmo motivo de outro equipamento.
 
 ---
 

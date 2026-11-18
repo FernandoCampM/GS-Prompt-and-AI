@@ -8,26 +8,24 @@ INTEGRANTES
 - André da Silva Pinto — RM 559038
 
 LINKS
-- Notebook no Colab: (colar o link de compartilhamento)
-- Prints da execução: (colar o link do Drive/GitHub com os prints)
+- Notebook no Colab: https://colab.research.google.com/drive/1JXF10iGDLSMppRmj7OzIPq-J0RHrySXv
+- Prints da execução: https://drive.google.com/drive/folders/1r7OzViX_8-npzRbnWL6c8XIdIV7l0IDf
 
 TELA FINAL DO NOTEBOOK (certificação)
-(Rodar Runtime → Run all, copiar a saída da última célula do notebook e colar abaixo, substituindo este bloco.)
-
 ======================================================================
 GS2026.2 · CitizenTech · Prompt and Artificial Intelligence — CERTIFICAÇÃO
 ======================================================================
 Dupla: Fernando Campos Garnica Mota (RM 567451) | André da Silva Pinto (RM 559038)
 Turma: 1CCPS | Frente: C — Acessibilidade | Solução: Acessa Metrô
-Execução: __/__/2026 __:__ | Modelo: ______
+Execução: 18/11/2026 05:08 | Modelo: llama3.2:1b
 ----------------------------------------------------------------------
 Registros válidos: 12 | fora do normal: 4
-Correções das 4 regras: ...
-Checagens das regras: ...
-Enriquecimento: __ via LLM | __ via regra (fallback)
-Chamadas ao LLM: __ | com sucesso: __
+Correções das 4 regras: {'regra1_motivo_preenchido': 1, 'regra1_status_invalido': 0, 'regra2_acessivel_normalizado': 9, 'regra3_horario_normalizado': 2, 'regra4_id_duplicado_removido': 1, 'id_formato_invalido': 0}
+Checagens das regras: todas OK
+Enriquecimento: 4 via LLM | 8 via regra (fallback)
+Chamadas ao LLM: 27 | com sucesso: 27
 Harness: 5 perguntas x 2 versões + 2 extras
 Matriz humana preenchida: SIM
-Média humana v1: __ | v2: __
+Média humana v1: 4.2 | v2: 3.0
 Arquivos gerados: 2_dados_servico.json | trilha_auditoria.json
 ======================================================================

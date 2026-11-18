@@ -63,15 +63,43 @@ O Acessa Metrô usa uma base de equipamentos com telemetria (simulada no estilo 
 
 ## 5. Prints
 
-*(Substituir pelos prints da execução de vocês)*
+Execução real no Colab em 18/11/2026 (`llama3.2:1b`). Pasta com todos os prints: https://drive.google.com/drive/folders/1r7OzViX_8-npzRbnWL6c8XIdIV7l0IDf
 
-1. **Run all concluído:** Seção 1 com a tabela de correções e o JSON salvo.
-2. **Seção 2:** tabela relato original × resumo da IA.
-3. **Seção 3:** tabela de auditoria com a coluna `fonte` e a fila de prioridade da manutenção.
-4. **Seção 5:** respostas v1 × v2 e a matriz de notas humanas.
-5. **Certificação final.**
+**1a. Seção 1: tabela de correções das 4 regras e "Registros válidos: 12 (de 13 recebidos)"**  
+![Seção 1: tabela de correções das 4 regras e "Registros válidos: 12 (de 13 recebidos)"](https://drive.google.com/thumbnail?id=1MvSvg_5qyg48awRpZ6BZuZLsS_G1pQ_A&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/1MvSvg_5qyg48awRpZ6BZuZLsS_G1pQ_A/view)
 
-> Dica: o zip não deve ter pasta extra. Para colocar as imagens, suba os prints em um link (Drive ou GitHub) e cole aqui com `![descrição](link)`, ou cole os links no `5_certificacao.txt`.
+**1b. Seção 1: "2_dados_servico.json salvo: 12 registros", risco de falha e teste de horário**  
+![Seção 1: "2_dados_servico.json salvo: 12 registros", risco de falha e teste de horário](https://drive.google.com/thumbnail?id=1v_Bppic0gXQSHJbbBzAW_ff84Gu_r4Br&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/1v_Bppic0gXQSHJbbBzAW_ff84Gu_r4Br/view)
+
+**2. Seção 2: relato original × resumo da IA × urgência (o FZC-009 traz a injection)**  
+![Seção 2: relato original × resumo da IA × urgência (o FZC-009 traz a injection)](https://drive.google.com/thumbnail?id=1YHHsCGP5BuX_2Eyf0p_0VAwxARAWeHGi&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/1YHHsCGP5BuX_2Eyf0p_0VAwxARAWeHGi/view)
+
+**3a. Seção 3: tabela de auditoria com a coluna fonte (8 via regra, 4 via LLM)**  
+![Seção 3: tabela de auditoria com a coluna fonte (8 via regra, 4 via LLM)](https://drive.google.com/thumbnail?id=1A1uo1vfjhNs0WQVqbyYnYJruchFDvmEf&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/1A1uo1vfjhNs0WQVqbyYnYJruchFDvmEf/view)
+
+**3b. Seção 3.1: fila de prioridade da manutenção**  
+![Seção 3.1: fila de prioridade da manutenção](https://drive.google.com/thumbnail?id=1c3L1Ejj6shv_I0RMzbjXpVRw1NEDehCv&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/1c3L1Ejj6shv_I0RMzbjXpVRw1NEDehCv/view)
+
+**4a. Seção 5: respostas v1 × v2 do harness**  
+![Seção 5: respostas v1 × v2 do harness](https://drive.google.com/thumbnail?id=19qFSp3U6mjza87u8eoOTyojgoU4yyrLR&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/19qFSp3U6mjza87u8eoOTyojgoU4yyrLR/view)
+
+**4b. Seção 5.2: matriz de notas humanas (média v1 4,2 / v2 3,0)**  
+![Seção 5.2: matriz de notas humanas (média v1 4,2 / v2 3,0)](https://drive.google.com/thumbnail?id=1OBfFDjdWoklgSP0qMXL_XkJk7vSPPWep&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/1OBfFDjdWoklgSP0qMXL_XkJk7vSPPWep/view)
+
+**4c. Seção 6: trilha de auditoria (27 de 27 chamadas com sucesso)**  
+![Seção 6: trilha de auditoria (27 de 27 chamadas com sucesso)](https://drive.google.com/thumbnail?id=12ZS_VQeMrqgYy4aDLTLdYAL4Z962u7BF&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/12ZS_VQeMrqgYy4aDLTLdYAL4Z962u7BF/view)
+
+**5. Certificação final (matriz humana preenchida: SIM)**  
+![Certificação final (matriz humana preenchida: SIM)](https://drive.google.com/thumbnail?id=1OQPoO-1Shlob0we46lS25oxx56_zcEFV&sz=w1600)  
+[abrir no Drive](https://drive.google.com/file/d/1OQPoO-1Shlob0we46lS25oxx56_zcEFV/view)
 
 ## 6. Decisões técnicas
 
